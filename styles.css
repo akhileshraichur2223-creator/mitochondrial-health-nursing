@@ -12,3 +12,16 @@
 @media(max-width:900px){.pdf-feature{align-items:stretch;flex-wrap:wrap}.pdf-copy{flex-basis:calc(100% - 70px)}.pdf-btn{width:100%;justify-content:center}.nav-pdf{width:100%;text-align:left}.floating-pdf{right:14px;bottom:14px}.floating-pdf span{display:none}}
 @media(max-width:600px){.pdf-feature{padding:12px}.pdf-badge{min-width:46px;height:46px}.pdf-copy strong{font-size:12px}.pdf-copy span{font-size:10px}}
 body.dark .nav-pdf{background:#12364d;color:#e7f2f8}
+
+/* Interactive cards and detail modal */
+.flow-step,.practice-card,.method-item{font:inherit;color:inherit;cursor:pointer;text-align:center}
+.flow-step{border:1px solid var(--line)}
+.flow-step:hover,.practice-card:hover,.method-item:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#8ccfe2}
+.practice-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;transition:.2s}
+.practice-card h3{margin-top:18px;font-size:17px}.practice-card p{font-size:12px;color:var(--muted)}.practice-card>b{font-size:11px;color:var(--blue)}
+.method-item{display:block;width:100%;border:0;border-right:1px solid rgba(255,255,255,.12);background:transparent;color:#fff;padding:18px}
+.method-item:last-child{border-right:0}.method-item:hover{background:rgba(255,255,255,.07)}
+.info-box{height:auto;min-height:260px;max-width:620px}.info-modal-content{padding:55px 34px 34px}.info-modal-content h2{font-family:"Playfair Display",serif;color:var(--navy);font-size:34px}.info-modal-content p{color:var(--muted);font-size:15px}
+.website-card{min-height:250px;display:flex;flex-direction:column;justify-content:center}.website-icon{font-size:38px;margin-bottom:8px}.website-btn{margin-top:8px;background:#eaf7ff;color:var(--navy);justify-content:center}
+body.dark .practice-card{background:#0b2030;color:var(--ink)}body.dark .info-modal-content{background:#0b2030}body.dark .info-modal-content h2{color:#e7f2f8}
+@media(max-width:900px){.method-item{border-right:0;border-bottom:1px solid rgba(255,255,255,.12)}.method-item:last-child{border-bottom:0}}
