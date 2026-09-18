@@ -224,7 +224,11 @@ if(mito3d){
   });
   const endDrag=()=>{mitoDragging=false;mito3d.classList.remove('dragging')};
   mito3d.addEventListener('pointerup',endDrag);mito3d.addEventListener('pointercancel',endDrag);
-  mito3d.addEventListener('click',()=>openInfo('Interactive mitochondrion','This 3D-style model illustrates the mitochondrion as the cellular site of oxidative phosphorylation and ATP production. Drag the model to inspect it; use Pause rotation to stop the automatic motion.'));
+  mito3d.addEventListener('click',e=>{
+  if(mitoDragging)return;
+  openInfo('Interactive mitochondrion','Mitochondria are membrane-bound organelles central to cellular energy metabolism. The inner mitochondrial membrane contains the respiratory chain and ATP synthase; its folded cristae increase membrane surface area. Tap the close button to return, or drag the model to explore its 3D-style view.');
+});
+mito3d.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openInfo('Interactive mitochondrion','Mitochondria are membrane-bound organelles central to cellular energy metabolism. The inner mitochondrial membrane contains the respiratory chain and ATP synthase; its folded cristae increase membrane surface area.')}});
 }
 toggleMito?.addEventListener('click',()=>{
   mitoPaused=!mitoPaused;
