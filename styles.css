@@ -97,3 +97,12 @@ nav a.active-link{color:var(--navy)}nav a.active-link:after{right:0}.nav-pdf{tex
 @media(max-width:900px){.mito-stage{height:360px}.mito-3d{width:min(100%,480px)}.mito-control{bottom:28px}}
 @media(max-width:600px){.mito-stage{height:320px}.mito-3d{width:100%}.mito-hint{font-size:9px}.mito-control{bottom:26px}}
 @media(prefers-reduced-motion:reduce){.mito-3d{animation:none}}
+
+/* Full SDM institutional logo */
+.brand-full{display:flex;align-items:center;width:min(390px,36vw);min-width:290px;text-decoration:none}
+.sdm-full-svg{display:block;width:100%;height:auto;max-height:78px;filter:drop-shadow(0 5px 12px rgba(8,49,83,.12));transition:transform .3s ease,filter .3s ease}
+.brand-full:hover .sdm-full-svg{transform:scale(1.025);filter:drop-shadow(0 8px 18px rgba(8,49,83,.18))}
+.pathway-link{display:inline-block;text-decoration:none;cursor:pointer}
+@media(max-width:1100px){.brand-full{width:310px;min-width:240px}.sdm-full-svg{max-height:66px}}
+@media(max-width:900px){.brand-full{width:260px;min-width:210px}.sdm-full-svg{max-height:58px}}
+@media(max-width:600px){.brand-full{width:225px;min-width:0}.sdm-full-svg{max-height:52px}}
