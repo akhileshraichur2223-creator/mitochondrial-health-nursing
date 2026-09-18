@@ -56,14 +56,21 @@
     </div>
     <div class="mito-wrap">
       <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
-      <svg class="mito" viewBox="0 0 520 330" role="img" aria-label="Stylized mitochondrion illustration">
-        <defs><linearGradient id="mg" x1="0" x2="1"><stop stop-color="#0b65c2"/><stop offset=".55" stop-color="#17b9c8"/><stop offset="1" stop-color="#123d86"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <ellipse cx="260" cy="165" rx="215" ry="105" fill="url(#mg)" filter="url(#glow)" transform="rotate(-10 260 165)"/>
-        <ellipse cx="260" cy="165" rx="188" ry="80" fill="#082b59" transform="rotate(-10 260 165)"/>
-        <path d="M105 160 C145 105 175 200 212 143 S275 103 300 155 S355 210 385 145 S425 130 438 157" fill="none" stroke="#ff7a21" stroke-width="22" stroke-linecap="round"/>
-        <path d="M106 193 C150 140 173 225 215 170 S270 130 300 180 S352 232 387 173 S420 160 432 182" fill="none" stroke="#ffbd45" stroke-width="10" stroke-linecap="round" opacity=".95"/>
-        <path d="M92 126 C135 74 170 165 204 112 S265 79 289 128 S350 184 380 116 S418 107 446 132" fill="none" stroke="#e63f34" stroke-width="8" stroke-linecap="round"/>
-      </svg>
+      <div class="mito-stage">
+        <div class="mito-3d" id="mito3d" role="img" aria-label="Interactive 3D-style rotating mitochondrion. Drag to rotate.">
+          <div class="mito-depth"></div>
+          <svg class="mito" viewBox="0 0 520 330" aria-hidden="true">
+            <defs><linearGradient id="mg" x1="0" x2="1"><stop stop-color="#0b65c2"/><stop offset=".55" stop-color="#17b9c8"/><stop offset="1" stop-color="#123d86"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+            <ellipse cx="260" cy="165" rx="215" ry="105" fill="url(#mg)" filter="url(#glow)" transform="rotate(-10 260 165)"/>
+            <ellipse cx="260" cy="165" rx="188" ry="80" fill="#082b59" transform="rotate(-10 260 165)"/>
+            <path d="M105 160 C145 105 175 200 212 143 S275 103 300 155 S355 210 385 145 S425 130 438 157" fill="none" stroke="#ff7a21" stroke-width="22" stroke-linecap="round"/>
+            <path d="M106 193 C150 140 173 225 215 170 S270 130 300 180 S352 232 387 173 S420 160 432 182" fill="none" stroke="#ffbd45" stroke-width="10" stroke-linecap="round" opacity=".95"/>
+            <path d="M92 126 C135 74 170 165 204 112 S265 79 289 128 S350 184 380 116 S418 107 446 132" fill="none" stroke="#e63f34" stroke-width="8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <button class="mito-control" id="toggleMito" type="button">⏸ Pause rotation</button>
+        <small class="mito-hint">↔ Drag the mitochondrion • Tap to explore</small>
+      </div>
       <div class="hero-note"><strong>POWERING HEALTHIER LIVES</strong><span>through nursing care</span></div>
     </div>
   </div>
@@ -84,9 +91,9 @@
       <p>Mitochondria regulate cellular bioenergetics, calcium homeostasis, redox signalling and cell survival. The poster highlights their relevance to chronic disease, persistent fatigue and age-related functional decline.</p>
       <button class="text-btn" data-scroll="#framework">See nursing pathway →</button>
     </article>
-    <article class="glass theme-card" data-theme="1"><span>THEME 01</span><h3>Dysfunction & fatigue</h3><p>Evidence links mitochondrial dysfunction with fatigue, reduced physical function and poorer quality of life in chronic conditions.</p></article>
-    <article class="glass theme-card" data-theme="2"><span>THEME 02</span><h3>Lifestyle support</h3><p>Balanced nutrition, physical activity, sleep and stress management are highlighted as potential supports for mitochondrial function.</p></article>
-    <article class="glass theme-card" data-theme="3"><span>THEME 03</span><h3>Nurse-led care</h3><p>Education, behaviour counselling and individualized care planning may support fatigue management and functional outcomes.</p></article>
+    <article class="glass theme-card" data-theme="1" data-info-title="Mitochondrial dysfunction & fatigue" data-info-text="Mitochondrial dysfunction is discussed in relation to fatigue, reduced physical function and quality of life in chronic conditions. Nursing relevance includes fatigue assessment, functional assessment and individualized symptom-management support."><span>THEME 01</span><h3>Dysfunction & fatigue</h3><p>Evidence links mitochondrial dysfunction with fatigue, reduced physical function and poorer quality of life in chronic conditions.</p></article>
+    <article class="glass theme-card" data-theme="2" data-info-title="Lifestyle support & mitochondrial health" data-info-text="The poster highlights balanced nutrition, physical activity, sleep and stress management as lifestyle areas that may support mitochondrial function. These should be individualized to the person and clinical context."><span>THEME 02</span><h3>Lifestyle support</h3><p>Balanced nutrition, physical activity, sleep and stress management are highlighted as potential supports for mitochondrial function.</p></article>
+    <article class="glass theme-card" data-theme="3" data-info-title="Nurse-led care" data-info-text="Nursing contributions include health education, behaviour counselling, individualized care planning, symptom management and support for self-management and healthy ageing."><span>THEME 03</span><h3>Nurse-led care</h3><p>Education, behaviour counselling and individualized care planning may support fatigue management and functional outcomes.</p></article>
   </div>
   <div class="method-strip">
     <button class="method-item" data-info-title="Evidence synthesis design" data-info-text="Narrative evidence synthesis connecting mitochondrial dysfunction with fatigue, chronic conditions, physical function and healthy ageing."><span>DESIGN</span><b>Narrative evidence synthesis</b></button><button class="method-item" data-info-title="Databases searched" data-info-text="PubMed • CINAHL • Scopus • Web of Science • Cochrane Library."><span>DATABASES</span><b>PubMed • CINAHL • Scopus • Web of Science • Cochrane Library</b></button><button class="method-item" data-info-title="Search period" data-info-text="The website presents the stated search period as 2014–2024."><span>SEARCH</span><b>2014–2024</b></button><button class="method-item" data-info-title="Analysis" data-info-text="The poster describes thematic analysis and synthesis of the included evidence."><span>ANALYSIS</span><b>Thematic analysis and synthesis</b></button>
@@ -110,9 +117,9 @@
    <div class="core"><div class="core-icon">🧬</div><h3>Optimized mitochondrial function</h3><span>nursing-focused care</span></div>
    <div class="connector"></div>
    <div class="outcomes">
-    <button class="outcome" data-panel="energy"><span>🏃</span><b>More energy</b><small>Fatigue support</small></button>
-    <button class="outcome" data-panel="cognition"><span>🧠</span><b>Better cognition</b><small>Function & wellbeing</small></button>
-    <button class="outcome" data-panel="physical"><span>🚶</span><b>Improved physical function</b><small>Mobility & ageing</small></button>
+    <button class="outcome" data-panel="energy" data-info-title="More energy — fatigue support" data-info-text="Assess fatigue and functional limitations; reinforce individualized education, symptom management and sustainable activity strategies."><span>🏃</span><b>More energy</b><small>Fatigue support</small></button>
+    <button class="outcome" data-panel="cognition" data-info-title="Better cognition — function & wellbeing" data-info-text="Use person-centred assessment and psychosocial support while considering how chronic conditions and ageing affect daily function."><span>🧠</span><b>Better cognition</b><small>Function & wellbeing</small></button>
+    <button class="outcome" data-panel="physical" data-info-title="Improved physical function" data-info-text="Support appropriate physical activity, nutrition and self-management strategies, with attention to mobility, functional capacity and healthy ageing."><span>🚶</span><b>Improved physical function</b><small>Mobility & ageing</small></button>
    </div>
    <div class="connector down"></div>
    <div class="quality"><span>👥</span><div><b>Enhanced quality of life & healthy ageing</b><small>person-centred outcomes</small></div></div>
