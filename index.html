@@ -61,20 +61,37 @@
     <div class="mito-wrap">
       <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
       <div class="mito-stage">
-        <div class="mito-3d" id="mito3d" role="img" aria-label="Interactive 3D-style rotating mitochondrion. Drag to rotate.">
-          <div class="mito-depth"></div>
-          <svg class="mito" viewBox="0 0 520 330" aria-hidden="true">
-            <defs><linearGradient id="mg" x1="0" x2="1"><stop stop-color="#0b65c2"/><stop offset=".55" stop-color="#17b9c8"/><stop offset="1" stop-color="#123d86"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-            <ellipse cx="260" cy="165" rx="215" ry="105" fill="url(#mg)" filter="url(#glow)" transform="rotate(-10 260 165)"/>
-            <ellipse cx="260" cy="165" rx="188" ry="80" fill="#082b59" transform="rotate(-10 260 165)"/>
-            <path d="M105 160 C145 105 175 200 212 143 S275 103 300 155 S355 210 385 145 S425 130 438 157" fill="none" stroke="#ff7a21" stroke-width="22" stroke-linecap="round"/>
-            <path d="M106 193 C150 140 173 225 215 170 S270 130 300 180 S352 232 387 173 S420 160 432 182" fill="none" stroke="#ffbd45" stroke-width="10" stroke-linecap="round" opacity=".95"/>
-            <path d="M92 126 C135 74 170 165 204 112 S265 79 289 128 S350 184 380 116 S418 107 446 132" fill="none" stroke="#e63f34" stroke-width="8" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <button class="mito-control" id="toggleMito" type="button">⏸ Pause rotation</button>
-        <small class="mito-hint">↔ Drag the mitochondrion • Tap to explore</small>
-      </div>
+  <div class="mito-3d premium-mito" id="mito3d" role="button" tabindex="0" aria-label="Interactive 3D mitochondrion. Tap for details or drag to rotate.">
+    <div class="mito-depth"></div>
+    <svg class="mito" viewBox="0 0 620 390" aria-hidden="true">
+      <defs>
+        <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#123e9b"/><stop offset=".42" stop-color="#08a9c8"/><stop offset=".72" stop-color="#31d4c4"/><stop offset="1" stop-color="#17428f"/></linearGradient>
+        <linearGradient id="innerM" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061a42"/><stop offset="1" stop-color="#0a315d"/></linearGradient>
+        <linearGradient id="cristae" x1="0" x2="1"><stop stop-color="#ffbd45"/><stop offset=".5" stop-color="#ff7b28"/><stop offset="1" stop-color="#ef443b"/></linearGradient>
+        <filter id="mitoGlow"><feGaussianBlur stdDeviation="10" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="soft"><feGaussianBlur stdDeviation="2"/></filter>
+      </defs>
+      <!-- outer mitochondrial membrane -->
+      <path d="M95 211C72 148 111 87 184 65C255 43 329 60 393 48C473 33 548 75 559 145C570 216 526 288 454 318C381 349 307 323 244 334C171 347 116 299 95 211Z" fill="url(#mg)" opacity=".98" filter="url(#mitoGlow)"/>
+      <!-- intermembrane space -->
+      <path d="M111 207C92 154 129 103 192 83C254 63 326 78 397 65C461 53 525 91 541 148C558 207 514 268 449 294C380 322 315 300 250 314C184 328 127 278 111 207Z" fill="url(#innerM)" stroke="rgba(125,226,220,.7)" stroke-width="4"/>
+      <!-- inner membrane / cristae -->
+      <path d="M140 177C169 135 201 159 224 197C247 236 277 236 294 184C311 132 349 123 373 169C397 215 421 222 448 177C469 143 493 153 507 181" fill="none" stroke="url(#cristae)" stroke-width="18" stroke-linecap="round"/>
+      <path d="M137 217C168 177 194 199 217 235C241 273 274 267 292 218C311 168 343 162 369 208C395 254 422 259 449 215C470 181 493 190 510 217" fill="none" stroke="#ffd36a" stroke-width="7" stroke-linecap="round" opacity=".92"/>
+      <path d="M150 143C181 111 209 134 230 169C252 205 282 205 300 156C318 108 348 101 374 145C400 190 426 195 453 151C474 119 493 126 512 153" fill="none" stroke="#f04b42" stroke-width="6" stroke-linecap="round" opacity=".9"/>
+      <!-- ATP / electron-flow accent particles -->
+      <g fill="#7de2dc">
+        <circle cx="166" cy="249" r="4"/><circle cx="204" cy="278" r="3"/><circle cx="348" cy="286" r="4"/><circle cx="470" cy="247" r="3"/>
+      </g>
+      <g fill="#fff" opacity=".75"><circle cx="182" cy="106" r="2.5"/><circle cx="430" cy="101" r="2.5"/><circle cx="503" cy="232" r="2"/></g>
+      <!-- subtle membrane highlight -->
+      <path d="M123 163C145 103 207 77 270 79" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".28"/>
+    </svg>
+    <div class="mito-label"><span>MITOCHONDRION</span><b>Cellular energy organelle</b></div>
+  </div>
+  <button class="mito-control" id="toggleMito" type="button">⏸ Pause rotation</button>
+  <small class="mito-hint">↔ Drag to rotate • Tap for scientific details</small>
+</div>
       <div class="hero-note"><strong>POWERING HEALTHIER LIVES</strong><span>through nursing care</span></div>
     </div>
   </div>
