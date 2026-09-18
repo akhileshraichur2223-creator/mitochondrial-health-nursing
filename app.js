@@ -57,3 +57,10 @@ const refs=[
 ];
 function renderRefs(q=''){const term=q.toLowerCase().trim();const box=$('#refList');box.innerHTML='';refs.forEach((r,i)=>{const text=(r[0]+' '+r[1]).toLowerCase();const el=document.createElement('article');el.className='ref'+(term&&!text.includes(term)?' hidden':'');el.innerHTML='<span class="ref-num">'+String(i+1).padStart(2,'0')+'</span><p>'+r[0]+'</p>';box.appendChild(el)})}
 renderRefs();$('#refSearch').addEventListener('input',e=>renderRefs(e.target.value));
+/* Extra interaction polish */
+const navPdf=$('#navPdf'), qrPdf=$('#qrPdf'), floatingPdf=$('#floatingPdf');
+if(navPdf) navPdf.onclick=openPDF;
+if(qrPdf) qrPdf.onclick=openPDF;
+if(floatingPdf) floatingPdf.onclick=e=>{e.preventDefault();openPDF()};
+$$('#nav a').forEach(link=>link.addEventListener('click',()=>{if(innerWidth<=900) $('#nav').style.display='none'}));
+$$('.theme-card').forEach(card=>card.addEventListener('click',()=>{$('#framework').scrollIntoView({behavior:'smooth'});const target={1:'energy',2:'physical',3:'cognition'}[card.dataset.theme];const btn=$('[data-panel="'+target+'"]');if(btn)btn.click()}));
