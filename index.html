@@ -14,23 +14,27 @@
 <body>
 <div class="progress" id="progress"></div>
 <header class="topbar">
-  <a class="brand" href="#top" aria-label="SDM Centre for Cellular and Molecular Sciences — Mitochondrial Health in Nursing">
-    <span class="sdm-logo" aria-hidden="true">
-      <svg viewBox="0 0 96 96" role="img">
-        <defs><linearGradient id="lg1" x1="0" x2="1"><stop stop-color="#0879c9"/><stop offset="1" stop-color="#6d45c4"/></linearGradient></defs>
-        <path d="M48 13 75 29v31L48 76 21 60V29Z" fill="none" stroke="url(#lg1)" stroke-width="5"/>
-        <circle cx="48" cy="13" r="9" fill="#fff" stroke="#e83f48" stroke-width="5"/>
-        <circle cx="75" cy="29" r="9" fill="#fff" stroke="#6d45c4" stroke-width="5"/>
-        <circle cx="75" cy="60" r="9" fill="#fff" stroke="#e83f48" stroke-width="5"/>
-        <circle cx="48" cy="76" r="9" fill="#fff" stroke="#6d45c4" stroke-width="5"/>
-        <circle cx="21" cy="60" r="9" fill="#fff" stroke="#e83f48" stroke-width="5"/>
-        <circle cx="21" cy="29" r="9" fill="#fff" stroke="#6d45c4" stroke-width="5"/>
-        <path d="M42 27h12v27H42z" fill="#8d0000"/><path d="M36 39h24M36 45h24M36 51h24" stroke="#8d0000" stroke-width="3"/>
-        <path d="M64 34c-5 3-5 8 0 11s5 8 0 11" fill="none" stroke="#0879c9" stroke-width="3"/>
-        <path d="M69 34c5 3 5 8 0 11s-5 8 0 11" fill="none" stroke="#0879c9" stroke-width="3"/>
-      </svg>
-    </span>
-    <span class="brand-copy"><b>SDM</b><strong>Centre for Cellular &amp; Molecular Sciences</strong><small>Mitochondrial Health in Nursing</small></span>
+  <a class="brand brand-full" href="#top" aria-label="SDM Centre for Cellular and Molecular Sciences — Mitochondrial Health in Nursing">
+    <svg class="sdm-full-svg" viewBox="0 0 620 180" role="img" aria-label="SDM Centre for Cellular and Molecular Sciences">
+      <defs><linearGradient id="lgFull" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0879c9"/><stop offset=".52" stop-color="#0e91df"/><stop offset="1" stop-color="#6329b8"/></linearGradient></defs>
+      <g transform="translate(8 7)">
+        <path d="M78 25 142 62v72l-64 37-64-37V62Z" fill="none" stroke="url(#lgFull)" stroke-width="7"/>
+        <circle cx="78" cy="25" r="18" fill="#fff" stroke="#ef2525" stroke-width="8"/>
+        <circle cx="142" cy="62" r="18" fill="#fff" stroke="#3f2099" stroke-width="8"/>
+        <circle cx="142" cy="134" r="18" fill="#fff" stroke="#ef2525" stroke-width="8"/>
+        <circle cx="78" cy="171" r="18" fill="#fff" stroke="#3f2099" stroke-width="8"/>
+        <circle cx="14" cy="134" r="18" fill="#fff" stroke="#ef2525" stroke-width="8"/>
+        <circle cx="14" cy="62" r="18" fill="#fff" stroke="#3f2099" stroke-width="8"/>
+        <path d="M68 67h20v58H68z" fill="#8d0000"/>
+        <path d="M55 89h46M55 101h46M55 113h46" stroke="#8d0000" stroke-width="6"/>
+        <text x="59" y="151" font-family="Arial,sans-serif" font-size="14" font-weight="800" fill="#1762a9">SDM</text>
+        <path d="M119 75c-13 9-13 21 0 30s13 21 0 30M131 75c13 9 13 21 0 30s-13 21 0 30" fill="none" stroke="#0879c9" stroke-width="6"/>
+        <path d="M122 80h14M119 104h20M122 130h14" stroke="#a40000" stroke-width="5"/>
+      </g>
+      <text x="177" y="82" font-family="Arial,sans-serif" font-size="62" font-weight="900" fill="#8d0000">SDM</text>
+      <text x="177" y="119" font-family="Arial,sans-serif" font-size="22" font-weight="500" fill="#171717">Centre for Cellular and</text>
+      <text x="177" y="148" font-family="Arial,sans-serif" font-size="22" font-weight="500" fill="#171717">Molecular Sciences</text>
+    </svg>
   </a>
   <nav id="nav">
     <a href="#overview">Overview</a><a href="#evidence">Evidence</a><a href="#framework">Framework</a><a href="#references">References</a><a class="nav-pdf" href="./Poster_Mito_References.pdf" target="_blank" rel="noopener">📄 Open PDF</a>
@@ -89,7 +93,7 @@
     <article class="glass feature">
       <div class="icon">⚡</div><h3>Why mitochondria matter</h3>
       <p>Mitochondria regulate cellular bioenergetics, calcium homeostasis, redox signalling and cell survival. The poster highlights their relevance to chronic disease, persistent fatigue and age-related functional decline.</p>
-      <button class="text-btn" data-scroll="#framework">See nursing pathway →</button>
+      <a class="text-btn pathway-link" href="#framework" id="nursingPathway">See nursing pathway →</a>
     </article>
     <article class="glass theme-card" data-theme="1" data-info-title="Mitochondrial dysfunction & fatigue" data-info-text="Mitochondrial dysfunction is discussed in relation to fatigue, reduced physical function and quality of life in chronic conditions. Nursing relevance includes fatigue assessment, functional assessment and individualized symptom-management support."><span>THEME 01</span><h3>Dysfunction & fatigue</h3><p>Evidence links mitochondrial dysfunction with fatigue, reduced physical function and poorer quality of life in chronic conditions.</p></article>
     <article class="glass theme-card" data-theme="2" data-info-title="Lifestyle support & mitochondrial health" data-info-text="The poster highlights balanced nutrition, physical activity, sleep and stress management as lifestyle areas that may support mitochondrial function. These should be individualized to the person and clinical context."><span>THEME 02</span><h3>Lifestyle support</h3><p>Balanced nutrition, physical activity, sleep and stress management are highlighted as potential supports for mitochondrial function.</p></article>
