@@ -245,3 +245,18 @@ $$('.theme-card').forEach(card=>card.addEventListener('click',e=>{
 $$('.outcome').forEach(btn=>btn.addEventListener('click',()=>{
  if(btn.dataset.infoTitle) openInfo(btn.dataset.infoTitle,btn.dataset.infoText);
 }));
+
+/* Guaranteed nursing pathway navigation */
+const nursingPathway=$('#nursingPathway');
+nursingPathway?.addEventListener('click',e=>{
+  e.preventDefault();
+  const target=$('#framework');
+  if(target){
+    target.scrollIntoView({behavior:'smooth',block:'start'});
+    setTimeout(()=>{
+      const first=$('.outcome[data-panel="energy"]');
+      first?.classList.add('active');
+      $('#energy')?.classList.add('show');
+    },500);
+  }
+});
