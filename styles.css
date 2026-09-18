@@ -25,3 +25,12 @@ body.dark .nav-pdf{background:#12364d;color:#e7f2f8}
 .website-card{min-height:250px;display:flex;flex-direction:column;justify-content:center}.website-icon{font-size:38px;margin-bottom:8px}.website-btn{margin-top:8px;background:#eaf7ff;color:var(--navy);justify-content:center}
 body.dark .practice-card{background:#0b2030;color:var(--ink)}body.dark .info-modal-content{background:#0b2030}body.dark .info-modal-content h2{color:#e7f2f8}
 @media(max-width:900px){.method-item{border-right:0;border-bottom:1px solid rgba(255,255,255,.12)}.method-item:last-child{border-bottom:0}}
+
+/* Direct PDF viewer - mobile safe */
+.pdf-box{max-width:560px!important;width:calc(100% - 28px)!important}
+.pdf-direct{text-align:center;padding:42px 24px 36px}
+.pdf-icon{font-size:58px;margin-bottom:12px}
+.pdf-direct h2{margin:0 0 10px}
+.pdf-direct p{margin:0 auto 24px;max-width:420px;line-height:1.6}
+.pdf-download{display:block;margin-top:16px;text-decoration:underline;font-weight:600}
+@media(max-width:600px){.pdf-direct{padding:34px 18px 28px}.pdf-direct .btn{width:100%}}
