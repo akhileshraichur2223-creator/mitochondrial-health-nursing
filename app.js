@@ -206,3 +206,42 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
 }));
 
 window.addEventListener('pageshow',()=>document.body.classList.add('page-ready'));
+
+/* 3D mitochondrion: auto-rotate + touch/mouse drag + pause */
+const mito3d=$('#mito3d'),toggleMito=$('#toggleMito');
+let mitoDragging=false,mitoPaused=false,lastX=0,lastY=0,rotY=0,rotX=3;
+if(mito3d){
+  mito3d.addEventListener('pointerdown',e=>{
+    mitoDragging=true; lastX=e.clientX; lastY=e.clientY;
+    mito3d.classList.add('dragging'); mito3d.setPointerCapture?.(e.pointerId);
+  });
+  mito3d.addEventListener('pointermove',e=>{
+    if(!mitoDragging)return;
+    rotY+= (e.clientX-lastX)*0.45; rotX-= (e.clientY-lastY)*0.22;
+    rotX=Math.max(-25,Math.min(25,rotX)); lastX=e.clientX; lastY=e.clientY;
+    mito3d.style.setProperty('--ry',rotY+'deg'); mito3d.style.setProperty('--rx',rotX+'deg');
+    mito3d.style.transform='rotateY('+rotY+'deg) rotateX('+rotX+'deg)';
+  });
+  const endDrag=()=>{mitoDragging=false;mito3d.classList.remove('dragging')};
+  mito3d.addEventListener('pointerup',endDrag);mito3d.addEventListener('pointercancel',endDrag);
+  mito3d.addEventListener('click',()=>openInfo('Interactive mitochondrion','This 3D-style model illustrates the mitochondrion as the cellular site of oxidative phosphorylation and ATP production. Drag the model to inspect it; use Pause rotation to stop the automatic motion.'));
+}
+toggleMito?.addEventListener('click',()=>{
+  mitoPaused=!mitoPaused;
+  mito3d?.style.setProperty('animation-play-state',mitoPaused?'paused':'running');
+  toggleMito.textContent=mitoPaused?'▶ Resume rotation':'⏸ Pause rotation';
+});
+
+$$('.theme-card').forEach(card=>card.addEventListener('click',e=>{
+ const target={1:'energy',2:'physical',3:'cognition'}[card.dataset.theme]||'energy';
+ $('#framework')?.scrollIntoView({behavior:'smooth'});
+ setTimeout(()=>{
+   $$('.info-panel').forEach(x=>x.classList.remove('show'));
+   $('#'+target)?.classList.add('show');
+   if(card.dataset.infoTitle) openInfo(card.dataset.infoTitle,card.dataset.infoText);
+ },500);
+}));
+
+$$('.outcome').forEach(btn=>btn.addEventListener('click',()=>{
+ if(btn.dataset.infoTitle) openInfo(btn.dataset.infoTitle,btn.dataset.infoText);
+}));
