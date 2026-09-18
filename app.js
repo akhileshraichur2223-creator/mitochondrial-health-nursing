@@ -35,18 +35,24 @@ info?.addEventListener('click',e=>{if(e.target===info)closeInfo()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePDF();closeInfo()}});
 
 const themeBtn=$('#themeBtn');
-themeBtn?.addEventListener('click',()=>{
- document.body.classList.toggle('dark');
- themeBtn.textContent=document.body.classList.contains('dark')?'☀':'◐';
-});
+function setTheme(dark){
+ document.body.classList.toggle('dark',dark);
+ if(themeBtn){themeBtn.textContent=dark?'☀':'◐';themeBtn.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');}
+ try{localStorage.setItem('mito-theme',dark?'dark':'light')}catch(e){}
+}
+themeBtn?.addEventListener('click',()=>setTheme(!document.body.classList.contains('dark')));
+try{if(localStorage.getItem('mito-theme')==='dark')setTheme(true)}catch(e){}
 
 const menuBtn=$('#menuBtn'),nav=$('#nav');
+function closeMobileMenu(){if(nav){nav.classList.remove('mobile-open');nav.style.display='';}menuBtn?.setAttribute('aria-expanded','false');}
 menuBtn?.addEventListener('click',()=>{
- const open=nav.style.display==='flex';
- nav.style.display=open?'none':'flex';
- if(!open){nav.style.position='absolute';nav.style.top='74px';nav.style.right='18px';nav.style.padding='15px';nav.style.flexDirection='column';nav.style.background=document.body.classList.contains('dark')?'#0b2030':'white';nav.style.border='1px solid #d9e8f2';nav.style.borderRadius='14px';nav.style.zIndex='200';}
+ if(!nav)return;
+ const open=nav.classList.toggle('mobile-open');
+ menuBtn.setAttribute('aria-expanded',String(open));
+ if(open){nav.style.display='flex';}else{nav.style.display='';}
 });
-$$('#nav a').forEach(link=>link.addEventListener('click',()=>{if(innerWidth<=900)nav.style.display='none'}));
+$('#nav a').forEach(link=>link.addEventListener('click',()=>{if(innerWidth<=900)closeMobileMenu()}));
+addEventListener('resize',()=>{if(innerWidth>900)closeMobileMenu()});
 
 $$('[data-scroll]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.scroll)?.scrollIntoView({behavior:'smooth'})));
 
@@ -192,13 +198,7 @@ const navObserver=new IntersectionObserver(entries=>{
 },{rootMargin:'-35% 0px -55% 0px'});
 sections.forEach(s=>navObserver.observe(s));
 
-themeBtn?.addEventListener('click',()=>{
-  localStorage.setItem('mito-theme',document.body.classList.contains('dark')?'dark':'light');
-});
-if(localStorage.getItem('mito-theme')==='dark'){
-  document.body.classList.add('dark');
-  if(themeBtn) themeBtn.textContent='☀';
-}
+
 
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
   const target=document.querySelector(a.getAttribute('href'));
@@ -259,4 +259,13 @@ nursingPathway?.addEventListener('click',e=>{
       $('#energy')?.classList.add('show');
     },500);
   }
+});
+
+/* Reliable delegated interactions for every information card */
+document.addEventListener('click',e=>{
+ const card=e.target.closest?.('.theme-card,.practice-card,.method-item,.flow-step,.outcome');
+ if(card && card.dataset.infoTitle){
+   e.preventDefault();
+   openInfo(card.dataset.infoTitle,card.dataset.infoText||'More information is available for this topic.');
+ }
 });
