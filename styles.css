@@ -131,3 +131,18 @@ body.dark .mobile-open{background:#0a2032!important;border-color:#214258!importa
 .method-item{border:0;color:inherit;background:transparent;padding:18px;text-align:left;cursor:pointer;font:inherit;border-right:1px solid rgba(255,255,255,.12)}
 .method-item:last-child{border-right:0}
 @media(max-width:900px){.mobile-open a{padding:10px 8px}.mobile-open .nav-pdf{display:flex!important}.brand-full{z-index:1}}
+
+/* Premium scientific mitochondrion presentation */
+.premium-mito{filter:drop-shadow(0 24px 45px rgba(7,62,120,.22))}
+.premium-mito .mito{filter:drop-shadow(0 14px 22px rgba(0,0,0,.24)) drop-shadow(0 0 18px rgba(22,184,200,.18))}
+.mito-label{position:absolute;right:5%;top:9%;z-index:4;padding:9px 13px;border:1px solid rgba(255,255,255,.55);border-radius:13px;background:rgba(255,255,255,.72);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(6,43,86,.12);text-align:left;pointer-events:none}
+.mito-label span,.mito-label b{display:block}.mito-label span{font-size:8px;letter-spacing:.16em;font-weight:900;color:var(--blue)}.mito-label b{font-size:10px;color:var(--navy)}
+.mito-3d[role="button"]:focus-visible{outline:3px solid rgba(22,184,200,.45);outline-offset:7px;border-radius:50%}
+.info-box{height:auto!important;max-height:min(620px,82vh);width:min(680px,100%)!important;padding:0}
+.info-modal-content{padding:46px 42px 40px}
+.info-modal-content .kicker{display:inline-block;margin-bottom:10px}
+.info-modal-content h2{font-family:"Playfair Display",serif;font-size:clamp(30px,5vw,44px);color:var(--navy);margin-bottom:15px}
+.info-modal-content p{font-size:15px;line-height:1.8;color:var(--muted);margin:0}
+.info-modal-content:before{content:"✦";display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#dff8fa,#ede5ff);color:var(--blue);font-size:20px;margin-bottom:18px}
+body.dark .info-modal-content h2{color:#eaf6ff}.info-modal-content .kicker{color:var(--cyan)}
+@media(max-width:600px){.mito-label{right:1%;top:5%;padding:7px 9px}.mito-label b{font-size:8px}.mito-label span{font-size:7px}.info-modal-content{padding:42px 24px 30px}.info-modal-content p{font-size:14px}}
