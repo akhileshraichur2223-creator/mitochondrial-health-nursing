@@ -146,3 +146,16 @@ body.dark .mobile-open{background:#0a2032!important;border-color:#214258!importa
 .info-modal-content:before{content:"✦";display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#dff8fa,#ede5ff);color:var(--blue);font-size:20px;margin-bottom:18px}
 body.dark .info-modal-content h2{color:#eaf6ff}.info-modal-content .kicker{color:var(--cyan)}
 @media(max-width:600px){.mito-label{right:1%;top:5%;padding:7px 9px}.mito-label b{font-size:8px}.mito-label span{font-size:7px}.info-modal-content{padding:42px 24px 30px}.info-modal-content p{font-size:14px}}
+
+/* Final interaction and mitochondrion polish */
+.mito-stage{perspective:1400px}
+.mito-3d{will-change:transform;transform-origin:center;animation:mitoSpin 9s ease-in-out infinite,mitoFloat 4.8s ease-in-out infinite}
+.mito-3d .mito{transform:translateZ(34px) scale(1.02);filter:drop-shadow(0 20px 28px rgba(0,0,0,.28)) drop-shadow(0 0 24px rgba(22,184,200,.22))}
+.mito-depth{transform:translateZ(-30px) rotate(-8deg) scale(.98);box-shadow:inset 0 0 45px rgba(0,0,0,.58),inset 0 0 12px rgba(125,226,220,.18),0 0 70px rgba(22,184,200,.22)}
+.mito-label{box-shadow:0 14px 38px rgba(6,43,86,.18);border-color:rgba(255,255,255,.7)}
+.mito-hint{background:rgba(255,255,255,.58);backdrop-filter:blur(8px);padding:5px 9px;border-radius:999px}
+body.dark .mito-label{background:rgba(8,29,45,.78);border-color:#31546b}
+body.dark .mito-label b{color:#e9f5ff}
+body.dark .mito-label span{color:#7de2dc}
+body.dark .mito-hint{background:rgba(8,29,45,.7)}
+@media(max-width:600px){.mito-stage{height:315px}.mito-3d{width:104%;margin-left:-2%}}
