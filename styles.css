@@ -34,3 +34,43 @@ body.dark .practice-card{background:#0b2030;color:var(--ink)}body.dark .info-mod
 .pdf-direct p{margin:0 auto 24px;max-width:420px;line-height:1.6}
 .pdf-download{display:block;margin-top:16px;text-decoration:underline;font-weight:600}
 @media(max-width:600px){.pdf-direct{padding:34px 18px 28px}.pdf-direct .btn{width:100%}}
+
+/* SDM branding + polished touch interactions */
+.sdm-logo{width:58px;height:58px;display:grid;place-items:center;flex:0 0 58px;border-radius:17px;background:rgba(255,255,255,.92);box-shadow:0 8px 25px rgba(8,49,83,.14);padding:4px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.sdm-logo svg{width:100%;height:100%}
+.brand-copy b{display:block;font-size:17px;line-height:1;color:#a00000;letter-spacing:.03em}
+.brand-copy strong{display:block;font-size:11px;line-height:1.2;color:var(--ink);font-weight:800;max-width:235px}
+.brand-copy small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.brand:hover .sdm-logo{transform:rotate(-3deg) scale(1.06);box-shadow:0 12px 30px rgba(8,121,201,.2)}
+.topbar{height:88px}
+nav a,.nav-pdf{position:relative;transition:transform .22s, color .22s, background .22s}
+nav a:after{content:"";position:absolute;left:0;right:100%;bottom:-7px;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple));transition:right .25s}
+nav a:hover:after{right:0}
+.btn,.icon-btn,.menu-btn,.theme-card,.flow-step,.outcome,.practice-card,.method-item,.glass,.ref,.stat,.qr-card{transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s,border-color .28s,background .28s}
+.btn:active,.icon-btn:active,.menu-btn:active,.nav-pdf:active,.flow-step:active,.outcome:active,.practice-card:active,.method-item:active,.theme-card:active{transform:scale(.96)}
+.btn:hover{transform:translateY(-3px)}
+.btn.primary:hover{box-shadow:0 18px 38px rgba(6,43,86,.28)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.visible{opacity:1;transform:none}
+.ripple{position:absolute;border-radius:50%;pointer-events:none;transform:scale(0);background:rgba(255,255,255,.42);animation:ripple .6s ease-out}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+.touch-glow{box-shadow:0 0 0 5px rgba(22,184,200,.10),0 16px 45px rgba(8,121,201,.18)!important}
+.hero .pdf-feature{transition:transform .35s,box-shadow .35s}
+.hero .pdf-feature:hover{transform:translateY(-4px);box-shadow:0 22px 55px rgba(6,43,86,.30)}
+.floating-pdf{transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.floating-pdf:active{transform:scale(.92)}
+@media(max-width:900px){
+ .topbar{height:76px;padding:0 14px}
+ .sdm-logo{width:46px;height:46px;flex-basis:46px;border-radius:13px}
+ .brand-copy b{font-size:14px}.brand-copy strong{font-size:9px;max-width:180px}.brand-copy small{font-size:8px}
+ .brand{gap:7px}.actions{gap:5px}
+}
+@media(max-width:600px){
+ .brand-copy strong{max-width:150px}
+ .brand-copy small{display:none}
+ .hero{padding-top:48px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
+ .reveal{opacity:1;transform:none}
+}
