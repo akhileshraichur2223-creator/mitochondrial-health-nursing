@@ -18,7 +18,7 @@
     <span class="brand-mark">SDM</span><span><b>MITO HEALTH</b><small>SDM University • Dharwad</small></span>
   </a>
   <nav id="nav">
-    <a href="#overview">Overview</a><a href="#evidence">Evidence</a><a href="#framework">Framework</a><a href="#references">References</a>
+    <a href="#overview">Overview</a><a href="#evidence">Evidence</a><a href="#framework">Framework</a><a href="#references">References</a><button class="nav-pdf" id="navPdf" type="button">📄 Open PDF</button>
   </nav>
   <div class="actions"><button class="icon-btn" id="themeBtn" aria-label="Toggle theme">◐</button><button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button></div>
 </header>
@@ -31,7 +31,12 @@
       <h1>Mitochondrial<br><span>Health in Nursing</span></h1>
       <p class="lead">Supporting chronic condition management, fatigue and healthy ageing through a nursing-focused evidence synthesis and clinical framework.</p>
       <div class="authors"><b>Mr. Mallikarjun</b><i>•</i><b>Ms. Bijlee</b><i>•</i><b>Mrs. Renuka</b><span>Research Scholars, SDM Institute of Nursing Sciences, SDM University, Dharwad</span></div>
-      <div class="hero-actions"><a class="btn primary" href="#evidence">Explore the evidence <span>↓</span></a><button class="btn ghost" id="openPdf">View full references <span>↗</span></button></div>
+      <div class="pdf-feature" id="referencesPdf">
+  <div class="pdf-badge">PDF</div>
+  <div class="pdf-copy"><strong>Complete References & Evidence Sources</strong><span>Open the full 5-page reference document</span></div>
+  <button class="btn pdf-btn" id="openPdf" type="button">VIEW FULL REFERENCES <span>↗</span></button>
+</div>
+<div class="hero-actions"><a class="btn primary" href="#evidence">Explore the evidence <span>↓</span></a><a class="btn ghost" href="#references">Browse searchable references <span>→</span></a></div>
       <div class="trust"><span>Evidence synthesis</span><span>2014–2024 search period</span><span>Nursing practice focus</span></div>
     </div>
     <div class="mito-wrap">
@@ -126,11 +131,13 @@
 
 <section class="closing">
  <div><span class="kicker">CONCLUSION</span><h2>Healthy mitochondria.<br><em>Empowered people. Brighter tomorrows.</em></h2><p>The poster concludes that mitochondrial health is central to chronic-condition management, fatigue reduction and healthy ageing, with nursing positioned to contribute through education, lifestyle interventions and holistic care.</p></div>
- <div class="qr-card"><div class="qr-placeholder"><span>QR</span></div><b>Scan to explore</b><small>Full references & interactive framework</small></div>
+ <div class="qr-card"><div class="qr-placeholder"><span>QR</span></div><b>Scan to explore</b><small>Full references & interactive framework</small><button class="btn qr-pdf" id="qrPdf" type="button">Open References PDF ↗</button></div>
 </section>
 </main>
 
 <footer><span>MITOCHONDRIAL HEALTH IN NURSING</span><span>SDM University • Dharwad</span><span>World Mitochondrial Disease Week 2026</span></footer>
+
+<a class="floating-pdf" id="floatingPdf" href="#referencesPdf" aria-label="Open complete references PDF">📄 <span>Open References PDF</span></a>
 
 <div class="modal" id="pdfModal" aria-hidden="true"><div class="modal-box"><button class="close" id="closePdf">×</button><div class="modal-head"><b>Supporting References</b><a href="Poster_Mito_References.pdf" target="_blank">Open in new tab ↗</a></div><iframe src="Poster_Mito_References.pdf" title="Mitochondrial Health in Nursing references PDF"></iframe></div></div>
 <script src="app.js"></script>
