@@ -15,8 +15,9 @@ function closePDF(){
 }
 function openInfo(title,text){
   if(!info) return;
-  $('#infoTitle').textContent=title;
-  $('#infoText').textContent=text;
+  const titleEl=$('#infoTitle'),textEl=$('#infoText');
+  if(titleEl)titleEl.textContent=title;
+  if(textEl)textEl.textContent=text;
   info.classList.add('open');
   info.setAttribute('aria-hidden','false');
 }
@@ -36,23 +37,38 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePDF();closeInf
 
 const themeBtn=$('#themeBtn');
 function setTheme(dark){
- document.body.classList.toggle('dark',dark);
- if(themeBtn){themeBtn.textContent=dark?'☀':'◐';themeBtn.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');}
- try{localStorage.setItem('mito-theme',dark?'dark':'light')}catch(e){}
+  document.body.classList.toggle('dark',!!dark);
+  document.documentElement.classList.toggle('dark',!!dark);
+  if(themeBtn){
+    themeBtn.textContent=dark?'☀':'◐';
+    themeBtn.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+    themeBtn.setAttribute('title',dark?'Switch to light mode':'Switch to dark mode');
+  }
+  try{localStorage.setItem('mito-theme',dark?'dark':'light')}catch(e){}
 }
-themeBtn?.addEventListener('click',()=>setTheme(!document.body.classList.contains('dark')));
-try{if(localStorage.getItem('mito-theme')==='dark')setTheme(true)}catch(e){}
+themeBtn?.addEventListener('click',e=>{
+  e.preventDefault();
+  e.stopPropagation();
+  setTheme(!document.body.classList.contains('dark'));
+});
+try{setTheme(localStorage.getItem('mito-theme')==='dark')}catch(e){setTheme(false)}
 
 const menuBtn=$('#menuBtn'),nav=$('#nav');
-function closeMobileMenu(){if(nav){nav.classList.remove('mobile-open');nav.style.display='';}menuBtn?.setAttribute('aria-expanded','false');}
-menuBtn?.addEventListener('click',()=>{
- if(!nav)return;
- const open=nav.classList.toggle('mobile-open');
- menuBtn.setAttribute('aria-expanded',String(open));
- if(open){nav.style.display='flex';}else{nav.style.display='';}
-});
-$('#nav a').forEach(link=>link.addEventListener('click',()=>{if(innerWidth<=900)closeMobileMenu()}));
-addEventListener('resize',()=>{if(innerWidth>900)closeMobileMenu()});
+function closeMobileMenu(){
+  if(nav){nav.classList.remove('mobile-open');nav.style.display='';}
+  menuBtn?.setAttribute('aria-expanded','false');
+  menuBtn?.setAttribute('aria-label','Open navigation menu');
+}
+function toggleMobileMenu(){
+  if(!nav||!menuBtn)return;
+  const open=nav.classList.toggle('mobile-open');
+  nav.style.display=open?'flex':'';
+  menuBtn.setAttribute('aria-expanded',String(open));
+  menuBtn.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');
+}
+menuBtn?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();toggleMobileMenu()});
+nav?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{if(innerWidth<=900)closeMobileMenu()}));
+window.addEventListener('resize',()=>{if(innerWidth>900)closeMobileMenu()});
 
 $$('[data-scroll]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.scroll)?.scrollIntoView({behavior:'smooth'})));
 
@@ -207,34 +223,57 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
 
 window.addEventListener('pageshow',()=>document.body.classList.add('page-ready'));
 
-/* 3D mitochondrion: auto-rotate + touch/mouse drag + pause */
-const mito3d=$('#mito3d'),toggleMito=$('#toggleMito');
-let mitoDragging=false,mitoPaused=false,lastX=0,lastY=0,rotY=0,rotX=3;
+/* Interactive mitochondrion — automatic motion + drag + reliable tap */
+const mito3d=$('#mito3d');
+let mitoDragging=false,dragMoved=false,lastX=0,lastY=0,rotY=0,rotX=3;
 if(mito3d){
   mito3d.addEventListener('pointerdown',e=>{
-    mitoDragging=true; lastX=e.clientX; lastY=e.clientY;
+    mitoDragging=true; dragMoved=false; lastX=e.clientX; lastY=e.clientY;
     mito3d.classList.add('dragging'); mito3d.setPointerCapture?.(e.pointerId);
   });
   mito3d.addEventListener('pointermove',e=>{
     if(!mitoDragging)return;
-    rotY+= (e.clientX-lastX)*0.45; rotX-= (e.clientY-lastY)*0.22;
-    rotX=Math.max(-25,Math.min(25,rotX)); lastX=e.clientX; lastY=e.clientY;
-    mito3d.style.setProperty('--ry',rotY+'deg'); mito3d.style.setProperty('--rx',rotX+'deg');
+    const dx=e.clientX-lastX,dy=e.clientY-lastY;
+    if(Math.abs(dx)+Math.abs(dy)>3)dragMoved=true;
+    rotY+=dx*.42; rotX=Math.max(-24,Math.min(24,rotX-dy*.2));
+    lastX=e.clientX; lastY=e.clientY;
+    mito3d.style.animation='none';
     mito3d.style.transform='rotateY('+rotY+'deg) rotateX('+rotX+'deg)';
   });
   const endDrag=()=>{mitoDragging=false;mito3d.classList.remove('dragging')};
-  mito3d.addEventListener('pointerup',endDrag);mito3d.addEventListener('pointercancel',endDrag);
-  mito3d.addEventListener('click',e=>{
-  if(mitoDragging)return;
-  openInfo('Interactive mitochondrion','Mitochondria are membrane-bound organelles central to cellular energy metabolism. The inner mitochondrial membrane contains the respiratory chain and ATP synthase; its folded cristae increase membrane surface area. Tap the close button to return, or drag the model to explore its 3D-style view.');
-});
-mito3d.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openInfo('Interactive mitochondrion','Mitochondria are membrane-bound organelles central to cellular energy metabolism. The inner mitochondrial membrane contains the respiratory chain and ATP synthase; its folded cristae increase membrane surface area.')}});
+  mito3d.addEventListener('pointerup',endDrag);
+  mito3d.addEventListener('pointercancel',endDrag);
+  mito3d.addEventListener('click',()=>{
+    if(dragMoved){dragMoved=false;return;}
+    openInfo('Interactive mitochondrion','Mitochondria are membrane-bound organelles central to cellular energy metabolism. The outer membrane surrounds the organelle, while the inner membrane forms folded cristae that contain the respiratory chain and ATP synthase. Drag the model to explore its 3D-style view.');
+  });
+  mito3d.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){
+      e.preventDefault();
+      openInfo('Interactive mitochondrion','The mitochondrion contains an outer membrane, intermembrane space and a highly folded inner membrane. The cristae increase membrane surface area for oxidative phosphorylation and ATP production.');
+    }
+  });
 }
-toggleMito?.addEventListener('click',()=>{
-  mitoPaused=!mitoPaused;
-  mito3d?.style.setProperty('animation-play-state',mitoPaused?'paused':'running');
-  toggleMito.textContent=mitoPaused?'▶ Resume rotation':'⏸ Pause rotation';
+
+/* One reliable delegated handler for every detail card */
+document.addEventListener('click',e=>{
+  const card=e.target.closest?.('[data-info-title]');
+  if(!card || card.id==='mito3d')return;
+  if(card.dataset.panel){
+    $$('.outcome').forEach(x=>x.classList.remove('active'));
+    $$('.info-panel').forEach(x=>x.classList.remove('show'));
+    card.classList.add('active');
+    $('#'+card.dataset.panel)?.classList.add('show');
+  }
+  openInfo(card.dataset.infoTitle,card.dataset.infoText||'More information is available for this topic.');
 });
+
+/* Reliable modal closing */
+document.addEventListener('click',e=>{
+  if(e.target.closest?.('#closeInfo'))closeInfo();
+  if(e.target===info)closeInfo();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeInfo()});
 
 $$('.theme-card').forEach(card=>card.addEventListener('click',e=>{
  const target={1:'energy',2:'physical',3:'cognition'}[card.dataset.theme]||'energy';
@@ -254,22 +293,13 @@ $$('.outcome').forEach(btn=>btn.addEventListener('click',()=>{
 const nursingPathway=$('#nursingPathway');
 nursingPathway?.addEventListener('click',e=>{
   e.preventDefault();
-  const target=$('#framework');
-  if(target){
-    target.scrollIntoView({behavior:'smooth',block:'start'});
-    setTimeout(()=>{
-      const first=$('.outcome[data-panel="energy"]');
-      first?.classList.add('active');
-      $('#energy')?.classList.add('show');
-    },500);
-  }
+  $('#framework')?.scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>{
+    const first=$('.outcome[data-panel="energy"]');
+    $$('.outcome').forEach(x=>x.classList.remove('active'));
+    $$('.info-panel').forEach(x=>x.classList.remove('show'));
+    first?.classList.add('active');
+    $('#energy')?.classList.add('show');
+  },450);
 });
 
-/* Reliable delegated interactions for every information card */
-document.addEventListener('click',e=>{
- const card=e.target.closest?.('.theme-card,.practice-card,.method-item,.flow-step,.outcome');
- if(card && card.dataset.infoTitle){
-   e.preventDefault();
-   openInfo(card.dataset.infoTitle,card.dataset.infoText||'More information is available for this topic.');
- }
-});
