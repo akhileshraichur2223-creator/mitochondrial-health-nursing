@@ -1,17 +1,81 @@
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+
 const pdf=$('#pdfModal');
-function openPDF(){pdf.classList.add('open');pdf.setAttribute('aria-hidden','false')}
-function closePDF(){pdf.classList.remove('open');pdf.setAttribute('aria-hidden','true')}
-$('#openPdf').onclick=openPDF;$('#openPdf2').onclick=openPDF;$('#closePdf').onclick=closePDF;
-pdf.addEventListener('click',e=>{if(e.target===pdf)closePDF()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closePDF()});
-$('#themeBtn').onclick=()=>document.body.classList.toggle('dark');
-$('#menuBtn').onclick=()=>{const n=$('#nav');n.style.display=n.style.display==='flex'?'none':'flex';n.style.position='absolute';n.style.top='74px';n.style.right='18px';n.style.padding='15px';n.style.flexDirection='column';n.style.background='white';n.style.border='1px solid #d9e8f2';n.style.borderRadius='14px'};
-$$('[data-scroll]').forEach(b=>b.onclick=()=>$(b.dataset.scroll).scrollIntoView({behavior:'smooth'}));
+const info=$('#infoModal');
+
+function openPDF(){
+  if(!pdf) return;
+  pdf.classList.add('open');
+  pdf.setAttribute('aria-hidden','false');
+}
+function closePDF(){
+  if(!pdf) return;
+  pdf.classList.remove('open');
+  pdf.setAttribute('aria-hidden','true');
+}
+function openInfo(title,text){
+  if(!info) return;
+  $('#infoTitle').textContent=title;
+  $('#infoText').textContent=text;
+  info.classList.add('open');
+  info.setAttribute('aria-hidden','false');
+}
+function closeInfo(){
+  if(!info) return;
+  info.classList.remove('open');
+  info.setAttribute('aria-hidden','true');
+}
+
+const openPdf=$('#openPdf'),openPdf2=$('#openPdf2'),navPdf=$('#navPdf'),qrPdf=$('#qrPdf');
+[openPdf,openPdf2,navPdf,qrPdf].forEach(b=>{if(b)b.addEventListener('click',openPDF)});
+$('#closePdf')?.addEventListener('click',closePDF);
+$('#closeInfo')?.addEventListener('click',closeInfo);
+pdf?.addEventListener('click',e=>{if(e.target===pdf)closePDF()});
+info?.addEventListener('click',e=>{if(e.target===info)closeInfo()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePDF();closeInfo()}});
+
+const themeBtn=$('#themeBtn');
+themeBtn?.addEventListener('click',()=>{
+ document.body.classList.toggle('dark');
+ themeBtn.textContent=document.body.classList.contains('dark')?'☀':'◐';
+});
+
+const menuBtn=$('#menuBtn'),nav=$('#nav');
+menuBtn?.addEventListener('click',()=>{
+ const open=nav.style.display==='flex';
+ nav.style.display=open?'none':'flex';
+ if(!open){nav.style.position='absolute';nav.style.top='74px';nav.style.right='18px';nav.style.padding='15px';nav.style.flexDirection='column';nav.style.background=document.body.classList.contains('dark')?'#0b2030':'white';nav.style.border='1px solid #d9e8f2';nav.style.borderRadius='14px';nav.style.zIndex='200';}
+});
+$$('#nav a').forEach(link=>link.addEventListener('click',()=>{if(innerWidth<=900)nav.style.display='none'}));
+
+$$('[data-scroll]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.scroll)?.scrollIntoView({behavior:'smooth'})));
+
 const counters=$$('[data-count']);let counted=false;
-function countUp(){if(counted)return;const top=$('.stats').getBoundingClientRect().top;if(top<innerHeight-60){counted=true;counters.forEach(el=>{const end=+el.dataset.count;let n=0;const step=Math.max(1,Math.ceil(end/45));const tick=()=>{n=Math.min(end,n+step);el.textContent=n.toLocaleString();if(n<end)requestAnimationFrame(tick)};tick()})}}
-addEventListener('scroll',()=>{countUp();const h=document.documentElement.scrollHeight-innerHeight;$('#progress').style.width=(scrollY/h*100)+'%'},{passive:true});countUp();
-$$('.outcome').forEach(btn=>btn.onclick=()=>{$$('.outcome').forEach(x=>x.classList.remove('active'));btn.classList.add('active');$$('.info-panel').forEach(x=>x.classList.remove('show'));$('#'+btn.dataset.panel).classList.add('show')});
+function countUp(){
+ if(counted||!$('.stats'))return;
+ if($('.stats').getBoundingClientRect().top<innerHeight-60){
+  counted=true;
+  counters.forEach(el=>{
+   const end=+el.dataset.count;let n=0;const step=Math.max(1,Math.ceil(end/45));
+   const tick=()=>{n=Math.min(end,n+step);el.textContent=n.toLocaleString();if(n<end)requestAnimationFrame(tick)};
+   tick();
+  });
+ }
+}
+addEventListener('scroll',()=>{
+ countUp();
+ const h=document.documentElement.scrollHeight-innerHeight;
+ if(h>0)$('#progress').style.width=(scrollY/h*100)+'%';
+},{passive:true});
+countUp();
+
+$$('.outcome').forEach(btn=>btn.addEventListener('click',()=>{
+ $$('.outcome').forEach(x=>x.classList.remove('active'));
+ $$('.info-panel').forEach(x=>x.classList.remove('show'));
+ btn.classList.add('active');
+ $('#'+btn.dataset.panel)?.classList.add('show');
+}));
+
 const refs=[
 ["Filler, K., Lyon, D., Bennett, J., McCain, N., Elswick, R., Lukkahatai, N., & Saligan, L. N. (2014). Association of mitochondrial dysfunction and fatigue: A review of the literature. BBA Clinical, 1, 12–23.","mitochondrial dysfunction fatigue"],
 ["Harrington, J. S., Ryter, S. W., Plataki, M., Price, D. R., & Choi, A. M. K. (2023). Mitochondria in health, disease, and aging. Physiological Reviews, 103(4), 2349–2422.","health disease aging"],
@@ -55,12 +119,31 @@ const refs=[
 ["Herranz-Gómez, A., Cuenca-Martínez, F., Suso-Martí, L., Varangot-Reille, C., Prades-Monfort, M., Calatayud, J., & Casaña, J. (2023). Effectiveness of therapeutic exercise models on cancer-related fatigue in patients with cancer undergoing chemotherapy: A systematic review and network meta-analysis. Archives of Physical Medicine and Rehabilitation, 104(8), 1331–1342.","therapeutic exercise cancer fatigue"],
 ["Wu, T., Yan, F., Wei, Y., Yuan, C., Jiao, Y., Pan, Y., Zhang, Y., Zhang, H., Ma, Y., & Han, L. (2023). Effect of exercise therapy on cancer-related fatigue in patients with breast cancer: A systematic review and network meta-analysis. Physical Medicine and Rehabilitation, 102(12), 1055–1062.","exercise breast cancer fatigue"]
 ];
-function renderRefs(q=''){const term=q.toLowerCase().trim();const box=$('#refList');box.innerHTML='';refs.forEach((r,i)=>{const text=(r[0]+' '+r[1]).toLowerCase();const el=document.createElement('article');el.className='ref'+(term&&!text.includes(term)?' hidden':'');el.innerHTML='<span class="ref-num">'+String(i+1).padStart(2,'0')+'</span><p>'+r[0]+'</p>';box.appendChild(el)})}
-renderRefs();$('#refSearch').addEventListener('input',e=>renderRefs(e.target.value));
-/* Extra interaction polish */
-const navPdf=$('#navPdf'), qrPdf=$('#qrPdf'), floatingPdf=$('#floatingPdf');
-if(navPdf) navPdf.onclick=openPDF;
-if(qrPdf) qrPdf.onclick=openPDF;
-if(floatingPdf) floatingPdf.onclick=e=>{e.preventDefault();openPDF()};
-$$('#nav a').forEach(link=>link.addEventListener('click',()=>{if(innerWidth<=900) $('#nav').style.display='none'}));
-$$('.theme-card').forEach(card=>card.addEventListener('click',()=>{$('#framework').scrollIntoView({behavior:'smooth'});const target={1:'energy',2:'physical',3:'cognition'}[card.dataset.theme];const btn=$('[data-panel="'+target+'"]');if(btn)btn.click()}));
+
+function renderRefs(q=''){
+ const term=q.toLowerCase().trim(),box=$('#refList');
+ if(!box)return;
+ box.innerHTML='';
+ refs.forEach((r,i)=>{
+  const match=(r[0]+' '+r[1]).toLowerCase().includes(term);
+  const el=document.createElement('article');
+  el.className='ref'+(!match?' hidden':'');
+  el.innerHTML='<span class="ref-num">'+String(i+1).padStart(2,'0')+'</span><p>'+r[0]+'</p>';
+  box.appendChild(el);
+ });
+}
+renderRefs();
+$('#refSearch')?.addEventListener('input',e=>renderRefs(e.target.value));
+
+$$('.theme-card').forEach(card=>card.addEventListener('click',()=>{
+ const target={1:'energy',2:'physical',3:'cognition'}[card.dataset.theme]||'energy';
+ $('#framework')?.scrollIntoView({behavior:'smooth'});
+ setTimeout(()=>$('#'+target)?.classList.add('show'),450);
+}));
+
+$$('.flow-step,.practice-card,.method-item').forEach(el=>el.addEventListener('click',()=>{
+ openInfo(el.dataset.infoTitle,el.dataset.infoText);
+}));
+
+const floatingPdf=$('#floatingPdf');
+floatingPdf?.addEventListener('click',e=>{e.preventDefault();openPDF()});
